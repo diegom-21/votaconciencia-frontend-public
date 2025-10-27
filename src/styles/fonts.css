@@ -1,0 +1,93 @@
+/* ========================================
+   CUSTOM FONTS - OUTFIT
+======================================== */
+
+/* Outfit Regular */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit Medium */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit SemiBold */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit Bold */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit ExtraBold */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit Black */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit Light */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit Thin */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit ExtraLight */
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/static/Outfit-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Variable Font (opcional, para mejor rendimiento) */
+@font-face {
+  font-family: 'Outfit Variable';
+  src: url('../assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
