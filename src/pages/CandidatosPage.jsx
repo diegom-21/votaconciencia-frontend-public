@@ -30,20 +30,15 @@ const CandidatosPage = () => {
         setLoading(true);
         setError(null);
 
-        console.log('🔄 Cargando candidatos desde API...');
         const data = await getCandidatos();
 
         // Validar que los datos sean un array
         const candidatosList = Array.isArray(data) ? data : [];
 
-        console.log('📊 Candidatos obtenidos:', candidatosList.length);
-        console.log('📄 Estructura de candidatos:', candidatosList[0]);
-
         setCandidatos(candidatosList);
         setCandidatosFiltrados(candidatosList);
 
       } catch (error) {
-        console.error('❌ Error al cargar candidatos:', error);
         setError('Error al cargar los candidatos. Por favor intenta de nuevo.');
         setCandidatos([]);
         setCandidatosFiltrados([]);
@@ -72,7 +67,6 @@ const CandidatosPage = () => {
       return nombreCompleto.includes(termino) || partido.includes(termino);
     });
 
-    console.log(`🔍 Filtrado: "${searchTerm}" - ${filtrados.length} resultados`);
     setCandidatosFiltrados(filtrados);
   }, [searchTerm, candidatos]);
 
@@ -261,21 +255,11 @@ const CandidatoCard = ({ candidato }) => {
   const [logoError, setLogoError] = useState(false);
 
   const handleImageError = () => {
-    console.log('❌ Error cargando imagen para:', candidato.nombre);
     setImageError(true);
   };
 
-  const handleImageLoad = () => {
-    console.log('✅ Imagen cargada correctamente para:', candidato.nombre);
-  };
-
   const handleLogoError = () => {
-    console.log('❌ Error cargando logo del partido para:', candidato.partido_nombre);
     setLogoError(true);
-  };
-
-  const handleLogoLoad = () => {
-    console.log('✅ Logo del partido cargado correctamente para:', candidato.partido_nombre);
   };
 
   // Generar iniciales para placeholder
@@ -303,7 +287,6 @@ const CandidatoCard = ({ candidato }) => {
               alt={`${candidato.nombre} ${candidato.apellido}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               onError={handleImageError}
-              onLoad={handleImageLoad}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br 
@@ -330,7 +313,6 @@ const CandidatoCard = ({ candidato }) => {
               className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-lg shadow-sm 
                          bg-white border border-gray-100 p-1"
               onError={handleLogoError}
-              onLoad={handleLogoLoad}
             />
           ) : (
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shadow-sm bg-gradient-to-br 

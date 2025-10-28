@@ -10,35 +10,18 @@ const TriviaSection = () => {
     const fetchTrivias = async () => {
       try {
         const data = await getTrivias();
-        console.log('🧠 Datos de trivias recibidos:', data);
         
         // Verificar si viene en formato { data: [...] } o directamente [...]
         const triviasArray = data?.data || data;
-        console.log('🧠 Array de trivias:', triviasArray);
         
         if (Array.isArray(triviasArray)) {
           // Mostrar solo las primeras 3 trivias
           const triviasLimitadas = triviasArray.slice(0, 3);
-          console.log('🧠 Trivias limitadas:', triviasLimitadas);
-          
-          // Debug de cada trivia
-          triviasLimitadas.forEach((trivia, index) => {
-            console.log(`🧠 Trivia ${index + 1}:`, {
-              id: trivia.tema_trivia_id,
-              nombre: trivia.nombre_tema,
-              imagen_url: trivia.imagen_url,
-              descripcion: trivia.descripcion,
-              esta_activo: trivia.esta_activo
-            });
-          });
-          
           setTrivias(triviasLimitadas);
         } else {
-          console.log('🧠 No se recibió un array válido de trivias');
           setTrivias([]);
         }
       } catch (error) {
-        console.error('❌ Error al cargar trivias:', error);
         // Trivias de ejemplo si no hay datos
         setTrivias([
           {
@@ -111,21 +94,8 @@ const TriviaSection = () => {
                         alt={trivia.nombre_tema || trivia.titulo}
                         className="trivia-img"
                         onError={(e) => {
-                          console.log('❌ Error cargando imagen de trivia:', {
-                            trivia_id: trivia.tema_trivia_id,
-                            imagen_url: trivia.imagen_url,
-                            url_construida: getImageUrl(trivia.imagen_url),
-                            error: e
-                          });
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
-                        }}
-                        onLoad={() => {
-                          console.log('✅ Imagen de trivia cargada correctamente:', {
-                            trivia_id: trivia.tema_trivia_id,
-                            imagen_url: trivia.imagen_url,
-                            url_construida: getImageUrl(trivia.imagen_url)
-                          });
                         }}
                       />
                     ) : (

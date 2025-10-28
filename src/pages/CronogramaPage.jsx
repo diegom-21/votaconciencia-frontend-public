@@ -40,17 +40,14 @@ const CronogramaPage = () => {
                 setLoading(true);
                 setError(null);
 
-                console.log('🔄 Cargando eventos del cronograma...');
                 const data = await getCronogramaOrdenado();
 
                 // El backend devuelve { success: true, data: eventos }
                 const eventosData = data.success ? data.data : data;
 
-                console.log('📅 Eventos obtenidos:', eventosData);
                 setEventos(Array.isArray(eventosData) ? eventosData : []);
 
             } catch (error) {
-                console.error('❌ Error al cargar cronograma:', error);
                 setError('Error al cargar el cronograma. Por favor intenta de nuevo.');
                 setEventos([]);
             } finally {

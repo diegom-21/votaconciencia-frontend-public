@@ -39,26 +39,18 @@ const CandidateDetailPage = () => {
       try {
         setLoading(true);
         setError(null);
-
-        console.log('🔄 Cargando detalles del candidato ID:', id);
         
         // Obtener información básica del candidato
         const candidatoData = await getCandidatoById(id);
-        console.log('📊 Candidato obtenido:', candidatoData);
         setCandidato(candidatoData);
 
         // Obtener propuestas del candidato
-        console.log('🔄 Obteniendo propuestas para candidato ID:', id);
         const propuestasData = await getPropuestas(id);
-        console.log('📋 Propuestas obtenidas:', propuestasData);
-        console.log('📊 Número de propuestas:', propuestasData.length);
         setPropuestas(propuestasData);
 
         // Calcular posición política basada en las propuestas
         if (propuestasData.length > 0) {
-          console.log('🧮 Calculando posición política...');
           const posicion = calcularPosicionPolitica(propuestasData);
-          console.log('📊 Posición política calculada:', posicion);
           setPosicionPolitica(posicion);
         } else {
           setPosicionPolitica(null);
@@ -66,16 +58,9 @@ const CandidateDetailPage = () => {
 
         // Obtener historial político del candidato
         try {
-          console.log('🔄 Intentando obtener historial político para candidato ID:', id);
           const historialData = await getHistorialPolitico(id);
-          console.log('🏛️ Historial político obtenido exitosamente:', historialData);
-          console.log('🏛️ Número de entradas de historial:', historialData.length);
           setHistorial(historialData);
         } catch (historialError) {
-          console.error('❌ Error detallado al obtener historial político:', historialError);
-          console.log('⚠️ Mensaje de error:', historialError.message);
-          console.log('⚠️ Usando datos simulados para el historial');
-          
           // Usar datos simulados si no hay endpoint disponible o no hay datos
           const historialSimulado = [
             {
@@ -104,7 +89,6 @@ const CandidateDetailPage = () => {
         }
 
       } catch (error) {
-        console.error('❌ Error al cargar candidato:', error);
         setError('Error al cargar los detalles del candidato. Por favor intenta de nuevo.');
       } finally {
         setLoading(false);

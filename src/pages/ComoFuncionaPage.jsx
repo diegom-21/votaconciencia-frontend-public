@@ -18,7 +18,7 @@ const ComoFuncionaPage = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 constrain-width contain-all">
 
                 {/* Header Section */}
-                <div className="text-center mb-12 sm:mb-16">
+                <div className="text-center mt-20 mb-12 sm:mb-16">
                     <div className="flex justify-center mb-6">
                         <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
                             <SparklesIcon className="w-8 h-8 text-white" />

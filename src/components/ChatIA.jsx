@@ -84,16 +84,6 @@ const ChatIA = ({ candidatoId, candidatoNombre = 'el candidato' }) => {
   }, [candidatoNombre]);
 
   /**
-   * Debug: Verificar que recibimos los props correctos
-   */
-  useEffect(() => {
-    console.log('🔍 ChatIA props recibidas:', { candidatoId, candidatoNombre });
-    if (!candidatoId) {
-      console.error('❌ ADVERTENCIA: candidatoId no está definido');
-    }
-  }, [candidatoId, candidatoNombre]);
-
-  /**
    * Normalizar pregunta para cache (minúsculas, sin espacios extra)
    */
   const normalizarPregunta = (pregunta) => {
@@ -108,7 +98,6 @@ const ChatIA = ({ candidatoId, candidatoNombre = 'el candidato' }) => {
 
     // Verificar que tenemos candidatoId
     if (!candidatoId) {
-      console.error('❌ Error: candidatoId no está definido');
       setError('Error: ID del candidato no disponible');
       return;
     }
@@ -117,8 +106,6 @@ const ChatIA = ({ candidatoId, candidatoNombre = 'el candidato' }) => {
     
     // Verificar cache local primero
     if (cachePreguntas[preguntaNormalizada]) {
-      console.log('📋 Respuesta encontrada en cache local');
-      
       // Agregar pregunta del usuario
       const nuevaPreguntaUsuario = {
         id: Date.now(),
@@ -155,11 +142,7 @@ const ChatIA = ({ candidatoId, candidatoNombre = 'el candidato' }) => {
     setError(null);
 
     try {
-      console.log('🤖 Enviando consulta a la IA:', { candidatoId, pregunta });
-      
       const response = await consultarIA(candidatoId, pregunta);
-
-      console.log('✅ Respuesta de la IA recibida:', response);
 
       if (response && response.respuesta) {
         const respuestaIA = {
@@ -182,8 +165,6 @@ const ChatIA = ({ candidatoId, candidatoNombre = 'el candidato' }) => {
       }
 
     } catch (error) {
-      console.error('❌ Error al consultar IA:', error);
-      
       let mensajeError = 'Lo siento, no pude procesar tu pregunta en este momento. ';
       
       if (error.message.includes('sobrecargado')) {

@@ -13,21 +13,7 @@ const CandidatesSection = () => {
         // Mostrar solo los primeros 4 candidatos
         const candidatosList = Array.isArray(data) ? data.slice(0, 4) : [];
         setCandidatos(candidatosList);
-        
-        // Debug: ver la estructura de datos de candidatos
-        console.log('📊 Candidatos cargados:', candidatosList);
-        candidatosList.forEach((candidato, index) => {
-          console.log(`Candidato ${index + 1}:`, {
-            nombre: candidato.nombre,
-            apellido: candidato.apellido,
-            imagen: candidato.imagen,
-            foto_url: candidato.foto_url,
-            foto: candidato.foto,
-            imagenCompleta: candidato
-          });
-        });
       } catch (error) {
-        console.error('Error al cargar candidatos:', error);
         setCandidatos([]);
       } finally {
         setLoading(false);
@@ -60,12 +46,6 @@ const CandidatesSection = () => {
             const imagePath = candidato.foto_url;
             // Variable de seguridad para la URL de la imagen
             const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
-            
-            console.log(`🖼️ Candidato ${candidato.nombre}:`, {
-              foto_url: candidato.foto_url,
-              imageUrl: imageUrl,
-              nombre: candidato.nombre
-            });
 
             return (
               <div key={candidato.candidato_id || index} className="text-center group">
@@ -76,7 +56,6 @@ const CandidatesSection = () => {
                       alt={`${candidato.nombre} ${candidato.apellido}`}
                       className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover mx-auto border-4 border-gray-200 group-hover:border-blue-300 transition-all duration-300"
                       onError={(e) => {
-                        console.log('❌ Error cargando imagen:', imageUrl);
                         // Ocultar la imagen y mostrar placeholder con signo de interrogación
                         e.target.style.display = 'none';
                         const placeholder = e.target.parentElement.querySelector('.candidate-placeholder') || 
@@ -84,9 +63,6 @@ const CandidatesSection = () => {
                         placeholder.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 flex items-center justify-center mx-auto border-4 border-gray-200';
                         placeholder.innerHTML = '<span class="text-2xl font-bold text-gray-500">?</span>';
                         e.target.parentElement.appendChild(placeholder);
-                      }}
-                      onLoad={() => {
-                        console.log('✅ Imagen cargada correctamente:', imageUrl);
                       }}
                     />
                   ) : (

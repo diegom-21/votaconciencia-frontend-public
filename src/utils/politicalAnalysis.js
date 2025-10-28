@@ -28,9 +28,6 @@ export const extraerMetricasPoliticas = (resumenCompleto) => {
   }
 
   try {
-    console.log('🔍 Analizando texto para métricas políticas...');
-    console.log('📝 Texto original:', resumenCompleto);
-
     // Extraer orientación política
     const orientacionMatch = resumenCompleto.match(/Orientación política:\s*([^\n\r]+)/i);
     const orientacion = orientacionMatch?.[1]?.trim() || '';
@@ -64,13 +61,10 @@ export const extraerMetricasPoliticas = (resumenCompleto) => {
       explicacion,
       textoLimpio
     };
-
-    console.log('📊 Métricas extraídas:', resultado);
     
     return resultado;
 
   } catch (error) {
-    console.error('❌ Error al extraer métricas políticas:', error);
     return {
       orientacion: '',
       afinidad: 0,
@@ -96,15 +90,13 @@ export const calcularPosicionPolitica = (propuestas) => {
     };
   }
 
-  console.log('🧮 Calculando posición política para', propuestas.length, 'propuestas');
-
   let totalX = 0;
   let totalY = 0;
   let totalAfinidad = 0;
   let propuestasValidas = 0;
   const distribuciones = {};
 
-  propuestas.forEach((propuesta, index) => {
+  propuestas.forEach((propuesta) => {
     const metricas = extraerMetricasPoliticas(propuesta.resumen_ia);
     
     if (metricas.orientacion && ORIENTACIONES_POLITICAS[metricas.orientacion]) {
@@ -119,13 +111,6 @@ export const calcularPosicionPolitica = (propuestas) => {
 
       // Contar distribución de orientaciones
       distribuciones[metricas.orientacion] = (distribuciones[metricas.orientacion] || 0) + 1;
-      
-      console.log(`📊 Propuesta ${index + 1}:`, {
-        tema: propuesta.nombre_tema,
-        orientacion: metricas.orientacion,
-        afinidad: metricas.afinidad,
-        coordenadas: coords
-      });
     }
   });
 
@@ -157,8 +142,6 @@ export const calcularPosicionPolitica = (propuestas) => {
     distribuciones,
     totalPropuestas: propuestasValidas
   };
-
-  console.log('🎯 Posición política calculada:', resultado);
   
   return resultado;
 };

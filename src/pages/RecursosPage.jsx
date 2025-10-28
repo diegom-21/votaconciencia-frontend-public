@@ -40,17 +40,12 @@ const RecursosPage = () => {
       try {
         setLoading(true);
         setError(null);
-
-        console.log('🔄 Cargando recursos y trivias...');
         
         // Cargar recursos y trivias en paralelo
         const [recursosData, triviasData] = await Promise.all([
           getRecursos(),
           getTrivias()
         ]);
-
-        console.log('📚 Recursos obtenidos:', recursosData);
-        console.log('🧠 Trivias obtenidas:', triviasData);
 
         // Filtrar solo los publicados
         const recursosPublicados = recursosData.filter(recurso => recurso.esta_publicado === 1);
@@ -60,7 +55,6 @@ const RecursosPage = () => {
         setTrivias(triviasPublicadas);
 
       } catch (error) {
-        console.error('❌ Error al cargar datos:', error);
         setError('Error al cargar el contenido educativo. Por favor intenta de nuevo.');
       } finally {
         setLoading(false);

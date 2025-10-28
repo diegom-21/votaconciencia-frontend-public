@@ -10,35 +10,18 @@ const ResourcesSection = () => {
     const fetchRecursos = async () => {
       try {
         const data = await getRecursos();
-        console.log('🎓 Datos de recursos recibidos:', data);
         
         // Verificar si viene en formato { data: [...] } o directamente [...]
         const recursosArray = data?.data || data;
-        console.log('🎓 Array de recursos:', recursosArray);
         
         if (Array.isArray(recursosArray)) {
           // Mostrar solo los primeros 3 recursos
           const recursosLimitados = recursosArray.slice(0, 3);
-          console.log('🎓 Recursos limitados:', recursosLimitados);
-          
-          // Debug de cada recurso
-          recursosLimitados.forEach((recurso, index) => {
-            console.log(`🎓 Recurso ${index + 1}:`, {
-              id: recurso.recurso_id,
-              titulo: recurso.titulo,
-              imagen_url: recurso.imagen_url,
-              imagen: recurso.imagen,
-              esta_publicado: recurso.esta_publicado
-            });
-          });
-          
           setRecursos(recursosLimitados);
         } else {
-          console.log('🎓 No se recibió un array válido de recursos');
           setRecursos([]);
         }
       } catch (error) {
-        console.error('❌ Error al cargar recursos:', error);
         // Recursos de ejemplo si no hay datos
         setRecursos([
           {
@@ -93,21 +76,8 @@ const ResourcesSection = () => {
                           alt={recurso.titulo}
                           className="resource-image"
                           onError={(e) => {
-                            console.log('❌ Error cargando imagen del recurso:', {
-                              recurso_id: recurso.recurso_id,
-                              imagen_url: recurso.imagen_url,
-                              url_construida: getImageUrl(recurso.imagen_url),
-                              error: e
-                            });
                             e.target.style.display = 'none';
                             e.target.nextSibling.style.display = 'flex';
-                          }}
-                          onLoad={() => {
-                            console.log('✅ Imagen cargada correctamente:', {
-                              recurso_id: recurso.recurso_id,
-                              imagen_url: recurso.imagen_url,
-                              url_construida: getImageUrl(recurso.imagen_url)
-                            });
                           }}
                         />
                       ) : (

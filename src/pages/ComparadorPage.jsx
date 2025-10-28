@@ -36,8 +36,6 @@ const ComparadorPage = () => {
       try {
         setLoading(true);
         setError(null);
-
-        console.log('🔄 Cargando datos iniciales del comparador...');
         
         // Cargar candidatos y temas en paralelo
         const [candidatosData, temasData] = await Promise.all([
@@ -45,14 +43,10 @@ const ComparadorPage = () => {
           getTemas()
         ]);
 
-        console.log('👥 Candidatos obtenidos:', candidatosData);
-        console.log('📋 Temas obtenidos:', temasData);
-
         setCandidatos(candidatosData.filter(c => c.esta_activo === 1));
         setTemas(temasData);
 
       } catch (error) {
-        console.error('❌ Error al cargar datos iniciales:', error);
         setError('Error al cargar los datos. Por favor intenta de nuevo.');
       } finally {
         setLoading(false);
@@ -74,14 +68,12 @@ const ComparadorPage = () => {
 
       try {
         setLoadingPropuestas(true);
-        console.log('🔄 Cargando propuestas para candidatos:', candidatosSeleccionados.map(c => c.candidato_id));
 
         const propuestasPromesas = candidatosSeleccionados.map(async (candidato) => {
           try {
             const propuestas = await getPropuestas(candidato.candidato_id);
             return { candidatoId: candidato.candidato_id, propuestas };
           } catch (error) {
-            console.error(`❌ Error al cargar propuestas del candidato ${candidato.candidato_id}:`, error);
             return { candidatoId: candidato.candidato_id, propuestas: [] };
           }
         });
@@ -93,11 +85,10 @@ const ComparadorPage = () => {
           propuestasMap[candidatoId] = propuestas;
         });
 
-        console.log('📊 Propuestas cargadas:', propuestasMap);
         setPropuestasPorCandidato(propuestasMap);
 
       } catch (error) {
-        console.error('❌ Error al cargar propuestas:', error);
+        // Error silencioso
       } finally {
         setLoadingPropuestas(false);
       }

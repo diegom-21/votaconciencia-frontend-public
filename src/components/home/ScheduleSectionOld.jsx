@@ -27,20 +27,18 @@ const ScheduleSection = () => {
         // Intentar obtener el próximo evento desde el endpoint específico
         try {
           const response = await getProximoEvento();
-          console.log('📅 Respuesta del próximo evento (endpoint específico):', response);
           
           if (response && response.data) {
             setNextEvent(response.data);
             return;
           }
         } catch (specificError) {
-          console.log('⚠️ Endpoint específico no disponible, intentando con lista completa...');
+          // Endpoint específico no disponible, intentar con lista completa
         }
         
         // Fallback: obtener lista completa y ordenar en frontend
         try {
           const cronogramaResponse = await getCronogramaOrdenado();
-          console.log('📅 Respuesta del cronograma ordenado:', cronogramaResponse);
           
           if (cronogramaResponse && cronogramaResponse.data && Array.isArray(cronogramaResponse.data)) {
             const proximoEvento = getNextEvent(cronogramaResponse.data.filter(e => e.esta_publicado));
@@ -50,7 +48,7 @@ const ScheduleSection = () => {
             }
           }
         } catch (ordenadoError) {
-          console.log('⚠️ Cronograma ordenado no disponible, usando evento de ejemplo...');
+          // Cronograma ordenado no disponible, usar evento de ejemplo
         }
         
         // Evento de ejemplo si no hay datos
@@ -62,7 +60,6 @@ const ScheduleSection = () => {
         });
         
       } catch (error) {
-        console.error('❌ Error al cargar próximo evento:', error);
         setError(error.message);
         
         // Evento de ejemplo en caso de error

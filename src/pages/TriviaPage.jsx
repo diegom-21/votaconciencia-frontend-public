@@ -47,8 +47,6 @@ const TriviaPage = () => {
         setError(null);
         setTiempoInicio(Date.now());
 
-        console.log('🔄 Cargando trivia para tema:', temaId);
-
         // Obtener información del tema
         const temasData = await getTrivias();
         const tema = temasData.find(t => t.tema_trivia_id === parseInt(temaId));
@@ -61,7 +59,6 @@ const TriviaPage = () => {
 
         // Obtener preguntas del tema
         const preguntasData = await getPreguntasByTema(temaId);
-        console.log('📋 Preguntas obtenidas:', preguntasData);
 
         // Cargar opciones para cada pregunta
         const preguntasConOpciones = await Promise.all(
@@ -78,10 +75,8 @@ const TriviaPage = () => {
         preguntasConOpciones.sort((a, b) => (a.orden_visualizacion || 0) - (b.orden_visualizacion || 0));
 
         setPreguntas(preguntasConOpciones);
-        console.log('✅ Trivia cargada:', { tema, preguntas: preguntasConOpciones });
 
       } catch (error) {
-        console.error('❌ Error al cargar trivia:', error);
         setError(error.message);
       } finally {
         setLoading(false);

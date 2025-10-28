@@ -13,17 +13,7 @@ const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.error('Error en la API:', error);
-        
-        // Manejar errores específicos
-        if (error.response?.status === 404) {
-            console.error('Recurso no encontrado');
-        } else if (error.response?.status === 500) {
-            console.error('Error interno del servidor');
-        } else if (error.code === 'ECONNABORTED') {
-            console.error('Timeout de la petición');
-        }
-        
+        // Manejar errores específicos sin mostrar en consola
         return Promise.reject(error);
     }
 );
@@ -78,8 +68,6 @@ export const getPropuestas = async (candidatoId = null, temaId = null) => {
         let url = '/propuestas';
         const params = new URLSearchParams();
         
-        console.log('🔄 getPropuestas llamada con:', { candidatoId, temaId });
-        
         if (candidatoId) params.append('candidato_id', candidatoId);
         if (temaId) params.append('tema_id', temaId);
         
@@ -87,10 +75,7 @@ export const getPropuestas = async (candidatoId = null, temaId = null) => {
             url += `?${params.toString()}`;
         }
         
-        console.log('🔗 URL final para propuestas:', `http://localhost:3000/api${url}`);
-        
         const response = await api.get(url);
-        console.log('📊 Respuesta de propuestas:', response.data);
         return response.data;
     } catch (error) {
         throw new Error('Error al obtener propuestas: ' + error.message);
@@ -181,14 +166,9 @@ export const getRecursos = async () => {
 export const getHistorialPolitico = async (candidatoId) => {
     try {
         const url = `/historial/candidato/${candidatoId}`;
-        console.log('🔗 Haciendo petición a URL:', `http://localhost:3000/api${url}`);
         const response = await api.get(url);
-        console.log('📊 Respuesta del historial político:', response.data);
         return response.data;
     } catch (error) {
-        console.error('❌ Error en getHistorialPolitico:', error);
-        console.error('❌ Status:', error.response?.status);
-        console.error('❌ Data:', error.response?.data);
         throw new Error('Error al obtener historial político: ' + error.message);
     }
 };
@@ -196,18 +176,12 @@ export const getHistorialPolitico = async (candidatoId) => {
 // Consultar a la IA sobre un candidato específico
 export const consultarIA = async (candidatoId, pregunta) => {
     try {
-        console.log('🤖 Enviando consulta a IA:', { candidatoId, pregunta });
         const response = await api.post('/openai/consultar', {
             candidatoId: candidatoId,
             pregunta: pregunta
         });
-        console.log('✅ Respuesta de IA recibida:', response.data);
         return response.data;
     } catch (error) {
-        console.error('❌ Error en consultarIA:', error);
-        console.error('❌ Status:', error.response?.status);
-        console.error('❌ Data:', error.response?.data);
-        
         if (error.response?.status === 429) {
             throw new Error('Servicio temporalmente sobrecargado. Intenta nuevamente en unos minutos.');
         } else if (error.response?.status >= 500) {
@@ -225,23 +199,17 @@ export const consultarIA = async (candidatoId, pregunta) => {
 // Función para construir URL de imágenes
 export const getImageUrl = (imagePath) => {
     if (!imagePath) {
-        console.log('🚫 getImageUrl: imagePath está vacío o null:', imagePath);
         return null;
     }
     
     // Si la ruta ya es completa (comienza con http), devolverla tal como está
     if (imagePath.startsWith('http')) {
-        console.log('🖼️ getImageUrl: URL completa:', imagePath);
         return imagePath;
     }
     
     // Si la ruta comienza con /uploads/, construir URL completa
     if (imagePath.startsWith('/uploads/')) {
         const fullUrl = `http://localhost:3000${imagePath}`;
-        console.log('🖼️ getImageUrl: Ruta de uploads:', {
-            original: imagePath,
-            fullUrl: fullUrl
-        });
         return fullUrl;
     }
     
@@ -257,11 +225,6 @@ export const getImageUrl = (imagePath) => {
     }
     
     const fullUrl = `http://localhost:3000/uploads/${cleanPath}`;
-    console.log('🖼️ getImageUrl:', {
-        original: imagePath,
-        cleaned: cleanPath,
-        fullUrl: fullUrl
-    });
     
     return fullUrl;
 };
