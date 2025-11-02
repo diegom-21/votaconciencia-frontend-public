@@ -270,8 +270,8 @@ const CandidatoCard = ({ candidato }) => {
   };
 
   // Construir URLs de imagen de manera segura
-  const imageUrl = candidato.foto_url ? `http://localhost:3000${candidato.foto_url}` : null;
-  const logoUrl = candidato.partido_logo ? `http://localhost:3000${candidato.partido_logo}` : null;
+  const imageUrl = candidato.foto_url ? getImageUrl(candidato.foto_url) : null;
+  const logoUrl = candidato.partido_logo ? getImageUrl(candidato.partido_logo) : null;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg 

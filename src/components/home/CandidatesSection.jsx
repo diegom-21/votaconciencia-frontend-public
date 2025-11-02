@@ -45,7 +45,7 @@ const CandidatesSection = () => {
             // El backend devuelve foto_url con formato: /uploads/images/filename.jpg
             const imagePath = candidato.foto_url;
             // Variable de seguridad para la URL de la imagen
-            const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
+            const imageUrl = imagePath ? getImageUrl(imagePath) : null;
 
             return (
               <div key={candidato.candidato_id || index} className="text-center group">

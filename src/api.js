@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 // Configuración base de la API
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_BASE_URL = `${API_URL}/api`;
+
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: API_BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
