@@ -41,9 +41,7 @@ const ComparadorPage = () => {
         const [candidatosData, temasData] = await Promise.all([
           getCandidatos(),
           getTemas()
-        ]);
-
-        setCandidatos(candidatosData.filter(c => c.esta_activo === 1));
+        ]);        setCandidatos(candidatosData.filter(c => c.esta_activo === 1));
         setTemas(temasData);
 
       } catch (error) {
@@ -71,7 +69,7 @@ const ComparadorPage = () => {
 
         const propuestasPromesas = candidatosSeleccionados.map(async (candidato) => {
           try {
-            const propuestas = await getPropuestas(candidato.candidato_id);
+                        const propuestas = await getPropuestas(candidato.candidato_id);
             return { candidatoId: candidato.candidato_id, propuestas };
           } catch (error) {
             return { candidatoId: candidato.candidato_id, propuestas: [] };

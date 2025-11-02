@@ -27,7 +27,17 @@ npm run preview
 
 ### 🔗 Conexión con la API
 
-La aplicación está configurada para conectarse automáticamente con el backend en `http://localhost:3000/api/`.
+La URL del backend se configura a través de la variable de entorno `VITE_API_URL` en el archivo `.env`. Por defecto apunta a `http://localhost:3000`.
+
+1. Copia el archivo de configuración de ejemplo:
+```bash
+cp .env.example .env
+```
+
+2. Configura la URL del backend en el archivo `.env`:
+```
+VITE_API_URL=http://localhost:3000  # URL del backend
+```
 
 #### Funciones disponibles (`src/api.js`):
 
