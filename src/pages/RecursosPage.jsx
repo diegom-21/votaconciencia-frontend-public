@@ -152,7 +152,7 @@ const RecursosPage = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 pt-20 no-scroll-x eliminate-black-bar">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 constrain-width contain-all">
+        <div className="max-w-7xl mt-20 mx-auto px-4 sm:px-6 lg:px-8 py-12 constrain-width contain-all">
           <div className="text-center">
             <ExclamationTriangleIcon className="w-16 h-16 text-red-500 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Error al cargar contenido</h1>
