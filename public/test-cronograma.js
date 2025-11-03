@@ -1,6 +1,6 @@
 // Script de prueba para verificar las rutas del cronograma
 const testCronogramaEndpoints = async () => {
-  const baseURL = 'http://localhost:3000/api';
+  const baseURL = `${import.meta.env.VITE_API_URL}/api`;
   
   console.log('🧪 Iniciando pruebas de endpoints del cronograma...\n');
   

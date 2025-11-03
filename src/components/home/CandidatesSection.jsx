@@ -45,7 +45,7 @@ const CandidatesSection = () => {
             // El backend devuelve foto_url con formato: /uploads/images/filename.jpg
             const imagePath = candidato.foto_url;
             // Variable de seguridad para la URL de la imagen
-            const imageUrl = imagePath ? getImageUrl(imagePath) : null;
+            const imageUrl = imagePath ? `${import.meta.env.VITE_API_URL}${imagePath}` : null;
 
             return (
               <div key={candidato.candidato_id || index} className="text-center group">
