@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Configuración base de la API
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL;
 const API_BASE_URL = `${API_URL}/api`;
 
 const api = axios.create({
@@ -212,7 +212,7 @@ export const getImageUrl = (imagePath) => {
     
     // Si la ruta comienza con /uploads/, construir URL completa
     if (imagePath.startsWith('/uploads/')) {
-        const fullUrl = `http://localhost:3000${imagePath}`;
+        const fullUrl = `${API_URL}${imagePath}`;
         return fullUrl;
     }
     
